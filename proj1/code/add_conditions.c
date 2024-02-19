@@ -17,7 +17,12 @@ void at_least_one_valid_street_for_each_step(CNF* formula, unsigned num_of_cross
     assert(num_of_streets > 0);
     assert(streets != NULL);
 
-    // ZDE PRIDAT KOD
+    for (unsigned i = 0; i < num_of_streets; ++i) {
+        Clause* cl = create_new_clause(formula);
+        for (unsigned j = 0; j < num_of_streets; ++j) {
+            add_literal_to_clause(cl, true, i, streets[j].crossroad_from, streets[j].crossroad_to);
+        }
+    }
 }
 
 // Tato funkce by mela do formule pridat klauzule predstavujici podminku 2)
@@ -28,7 +33,21 @@ void at_most_one_street_for_each_step(CNF* formula, unsigned num_of_crossroads, 
     assert(num_of_crossroads > 0);
     assert(num_of_streets > 0);
 
-    // ZDE PRIDAT KOD
+    for (unsigned i = 0; i < num_of_streets; ++i) {
+        for (unsigned z = 0; z < num_of_crossroads; ++z) {
+            for (unsigned k = 0; k < num_of_crossroads; ++k) {
+                Clause* cl = create_new_clause(formula);
+                add_literal_to_clause(cl, true, i, z, k);
+                for (unsigned z1 = 0; z1 < num_of_crossroads; ++z1) {
+                    for (unsigned k1 = 0; k1 < num_of_crossroads; ++k1) {
+                        if (z != z1 || k != k1) {
+                            add_literal_to_clause(cl, false, i, z1, k1);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 // Tato funkce by mela do formule pridat klauzule predstavujici podminku 3)

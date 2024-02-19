@@ -50,3 +50,8 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+.idea/
+
+proj1/tests/__pycache__/
+proj1/code/main
