@@ -61,19 +61,10 @@ void streets_connected(CNF* formula, unsigned num_of_crossroads, unsigned num_of
     for (unsigned i = 0; i < num_of_streets-1; ++i) {
         for (unsigned z = 0; z < num_of_crossroads; ++z) {
             for (unsigned k = 0; k < num_of_crossroads; ++k) {
-                for (unsigned z1 = 0; z1 < num_of_crossroads; ++z1) {
-                    for (unsigned k1 = 0; k1 < num_of_crossroads; ++k1) {
-                        Clause *cl = create_new_clause(formula);
-                        add_literal_to_clause(cl, false, i, z, k);
-                        if (k == z1) {
-                            while (k1 < num_of_crossroads) {
-                                add_literal_to_clause(cl, true, i + 1, z1, k1);
-                                k1++;
-                            }
-                        } else {
-                            add_literal_to_clause(cl, false, i + 1, z1, k1);
-                        }
-                    }
+                Clause *cl = create_new_clause(formula);
+                add_literal_to_clause(cl, false, i, z, k);
+                for (unsigned k1 = 0; k1 < num_of_crossroads; ++k1) {
+                    add_literal_to_clause(cl, true, i + 1, k, k1);
                 }
             }
         }
