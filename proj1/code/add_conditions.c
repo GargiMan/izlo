@@ -35,15 +35,15 @@ void at_most_one_street_for_each_step(CNF* formula, unsigned num_of_crossroads, 
 
     for (unsigned i = 0; i < num_of_streets; ++i) {
         for (unsigned z = 0; z < num_of_crossroads; ++z) {
-            for (unsigned k = 0; k < num_of_crossroads; ++k) {
-                for (unsigned z1 = 0; z1 < num_of_crossroads; ++z1) {
-                    for (unsigned k1 = 0; k1 < num_of_crossroads; ++k1) {
-                        if (z != z1 || k != k1) {
-                            Clause* cl = create_new_clause(formula);
-                            add_literal_to_clause(cl, false, i, z, k);
-                            add_literal_to_clause(cl, false, i, z1, k1);
-                        }
+            for (unsigned k = 0; k < num_of_crossroads; ++k) {     
+                unsigned k1_start = k + 1;   
+                for (unsigned z1 = z; z1 < num_of_crossroads; ++z1) {
+                    for (unsigned k1 = k1_start; k1 < num_of_crossroads; ++k1) {
+                        Clause* cl = create_new_clause(formula);
+                        add_literal_to_clause(cl, false, i, z, k);
+                        add_literal_to_clause(cl, false, i, z1, k1);
                     }
+                    k1_start = 0;
                 }
             }
         }
@@ -82,12 +82,10 @@ void streets_do_not_repeat(CNF* formula, unsigned num_of_crossroads, unsigned nu
     for (unsigned i = 0; i < num_of_streets; ++i) {
         for (unsigned z = 0; z < num_of_crossroads; ++z) {
             for (unsigned k = 0; k < num_of_crossroads; ++k) {
-                for (unsigned j = 0; j < num_of_streets; ++j) {
-                    if (i != j) {
-                        Clause* cl = create_new_clause(formula);
-                        add_literal_to_clause(cl, false, i, z, k);
-                        add_literal_to_clause(cl, false, j, z, k);
-                    }
+                for (unsigned j = i + 1; j < num_of_streets; ++j) {
+                    Clause* cl = create_new_clause(formula);
+                    add_literal_to_clause(cl, false, i, z, k);
+                    add_literal_to_clause(cl, false, j, z, k);
                 }
             }
         }
