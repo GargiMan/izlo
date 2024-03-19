@@ -144,4 +144,4 @@ Další pokyny a doporučení
 
 * * *
 
-1.  [https://github.com/cvc5/cvc5](https://github.com/cvc5/cvc5)[↩︎](https://www.fit.vutbr.cz/study/courses/IZLO/public/projekty/projekt2/zadani.html#fnref1)
+1.  https://github.com/cvc5/cvc5

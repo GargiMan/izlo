@@ -17,7 +17,23 @@
 ;;;;;;;; START OF SOLUTION ;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Zde doplnte vase reseni
+; 1. existují hodnoty parametrů D a E takové, že funkce f vratí true
+
+(assert (and (> D 0) (> E 0)))
+
+(declare-fun x () Int)
+(declare-fun y () Int)
+(declare-fun z () Int)
+
+(assert (= x (* A B 2)))
+(assert (or (and (< x E) (= y (+ x (* 5 B)))) (and (>= x E) (= y (- x C)))))
+(assert (or (and (< (+ y 2) D) (= z (- (* x A) (* y B)))) (and (>= (+ y 2) D) (= z (+ (* x B) (* y A))))))
+
+(assert (< z (+ E D)))
+
+; 2. součet D + E je nejmenší možný
+
+(assert (not (exists ((d Int) (e Int) (y1 Int) (z1 Int)) (and (< (+ d e) (+ D E)) (> d 0) (> e 0) (= x (* A B 2)) (or (and (< x e) (= y1 (+ x (* 5 B)))) (and (>= x e) (= y1 (- x C)))) (or (and (< (+ y1 2) d) (= z1 (- (* x A) (* y1 B)))) (and (>= (+ y1 2) d) (= z1 (+ (* x B) (* y1 A))))) (< z1 (+ e d))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;; END OF SOLUTION ;;;;;;;;;;;
